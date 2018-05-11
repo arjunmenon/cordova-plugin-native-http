@@ -234,7 +234,7 @@ __decorate([
 __decorate([
     Cordova(CORDOVA_DECORATOR_OPTIONS_HTTP_REQUEST),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, Object, Object, Boolean]),
+    __metadata("design:paramtypes", [String, String, Object, Object]),
     __metadata("design:returntype", Promise)
 ], NativeHttp.prototype, "custom", null);
 module.exports = new NativeHttp();
