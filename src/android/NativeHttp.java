@@ -63,6 +63,19 @@ public class NativeHttp extends CordovaPlugin {
                 this.request(action.toUpperCase(), path, paramsOrBody, headers, callbackContext);
             }
             return true;
+        } else if(action.equals("custom")) {
+            String method;
+            String path;
+            JSONObject paramsOrBody;
+            Headers headers;
+            
+            method = args.getString(0);
+            path = args.getString(1);
+            paramsOrBody = args.getJSONObject(2);
+            headers = jsonToHeaders(args.getJSONObject(3));
+            
+            this.customRequest(method.toUpperCase(), path, paramsOrBody, headers, callbackContext);
+            
         } else if (action.equals("download") || action.equals("upload")) {
 
             String remotePath = args.getString(0);
@@ -157,6 +170,28 @@ public class NativeHttp extends CordovaPlugin {
             }
 
 
+            requestBuilder.method(method, requestBody);
+            requestBuilder.url(path);
+            requestBuilder.headers(headers);
+
+            final Request request = requestBuilder.build();
+
+            makeRequest(request, callbackContext);
+
+
+        } catch (final Exception e) {
+            callbackContext.error(e.getLocalizedMessage());
+        }
+    }
+    
+    private void customRequest(final String method, final String path, final JSONObject body, final Headers headers, final CallbackContext callbackContext) {
+        try {
+            final Request.Builder requestBuilder = new Request.Builder();
+
+            final RequestBody requestBody;
+
+            requestBody = RequestBody.create(MediaType.parse("text/plain"), body.toString());
+            
             requestBuilder.method(method, requestBody);
             requestBuilder.url(path);
             requestBuilder.headers(headers);
