@@ -139,6 +139,7 @@ var NativeHttp = (function () {
     };
     NativeHttp.prototype.head = function (path, params, headers) { return; };
     NativeHttp.prototype.delete = function (path, params, headers) { return; };
+    NativeHttp.prototype.custom = function (method, path, body, headers) { return; };
     NativeHttp.prototype.download = function (remotePath, localPath, params, headers, onProgress) {
         headers = merge(this._defaultHeaders, headers);
         params = params || {};
@@ -230,4 +231,10 @@ __decorate([
     __metadata("design:paramtypes", [String, Object, Object]),
     __metadata("design:returntype", Promise)
 ], NativeHttp.prototype, "delete", null);
+__decorate([
+    Cordova(CORDOVA_DECORATOR_OPTIONS_HTTP_REQUEST),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, Object, Object, Boolean]),
+    __metadata("design:returntype", Promise)
+], NativeHttp.prototype, "custom", null);
 module.exports = new NativeHttp();
