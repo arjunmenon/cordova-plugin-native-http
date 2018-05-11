@@ -76,6 +76,8 @@ public class NativeHttp extends CordovaPlugin {
             
             this.customRequest(method.toUpperCase(), path, paramsOrBody, headers, callbackContext);
             
+            return true;
+            
         } else if (action.equals("download") || action.equals("upload")) {
 
             String remotePath = args.getString(0);
